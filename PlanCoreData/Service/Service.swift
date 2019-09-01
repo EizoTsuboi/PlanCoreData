@@ -56,7 +56,7 @@ class Service{
         // フェッチリクエスト(検索命令)の生成
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Plan")
         // startdateの順にソートする命令の追加（ascending(sort),selector,comparatorの設定が不要であれば、記載なしでOK）
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "startdate", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true)]
         //NSManegedObjectが入るオブジェクト
         let records: [Plan]
         do {
