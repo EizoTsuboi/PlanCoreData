@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		661ABEE7231A971000220C5A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661ABEE6231A971000220C5A /* Service.swift */; };
 		666412A62318AFA700E12330 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666412A52318AFA700E12330 /* AppDelegate.swift */; };
 		666412A82318AFA700E12330 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666412A72318AFA700E12330 /* ViewController.swift */; };
 		666412AB2318AFA700E12330 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 666412A92318AFA700E12330 /* Main.storyboard */; };
@@ -16,10 +17,11 @@
 		666412BB2318B5CE00E12330 /* InputPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666412BA2318B5CE00E12330 /* InputPlanViewController.swift */; };
 		666412BE2318D94800E12330 /* CostomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666412BC2318D94800E12330 /* CostomTableViewCell.swift */; };
 		666412BF2318D94800E12330 /* CostomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 666412BD2318D94800E12330 /* CostomTableViewCell.xib */; };
-		666412C12318E7DE00E12330 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666412C02318E7DE00E12330 /* Model.swift */; };
+		666412C12318E7DE00E12330 /* PlanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666412C02318E7DE00E12330 /* PlanModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		661ABEE6231A971000220C5A /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		666412A22318AFA700E12330 /* PlanCoreData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanCoreData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		666412A52318AFA700E12330 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		666412A72318AFA700E12330 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -31,7 +33,7 @@
 		666412BA2318B5CE00E12330 /* InputPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPlanViewController.swift; sourceTree = "<group>"; };
 		666412BC2318D94800E12330 /* CostomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostomTableViewCell.swift; sourceTree = "<group>"; };
 		666412BD2318D94800E12330 /* CostomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CostomTableViewCell.xib; sourceTree = "<group>"; };
-		666412C02318E7DE00E12330 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		666412C02318E7DE00E12330 /* PlanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanModel.swift; sourceTree = "<group>"; };
 		666412C3231A0C2A00E12330 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
@@ -46,6 +48,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		661ABEE2231A48E000220C5A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				666412C02318E7DE00E12330 /* PlanModel.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		661ABEE5231A96F400220C5A /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				661ABEE6231A971000220C5A /* Service.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		666412992318AFA700E12330 = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +83,8 @@
 		666412A42318AFA700E12330 /* PlanCoreData */ = {
 			isa = PBXGroup;
 			children = (
+				661ABEE5231A96F400220C5A /* Service */,
+				661ABEE2231A48E000220C5A /* Model */,
 				666412A52318AFA700E12330 /* AppDelegate.swift */,
 				666412A72318AFA700E12330 /* ViewController.swift */,
 				666412BA2318B5CE00E12330 /* InputPlanViewController.swift */,
@@ -74,7 +94,6 @@
 				666412AF2318AFA800E12330 /* Assets.xcassets */,
 				666412B12318AFA800E12330 /* LaunchScreen.storyboard */,
 				666412B42318AFA800E12330 /* Info.plist */,
-				666412C02318E7DE00E12330 /* Model.swift */,
 				666412AC2318AFA700E12330 /* PlanCoreData.xcdatamodeld */,
 				666412C3231A0C2A00E12330 /* MyPlayground.playground */,
 			);
@@ -154,9 +173,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				666412AE2318AFA700E12330 /* PlanCoreData.xcdatamodeld in Sources */,
+				661ABEE7231A971000220C5A /* Service.swift in Sources */,
 				666412BE2318D94800E12330 /* CostomTableViewCell.swift in Sources */,
 				666412A82318AFA700E12330 /* ViewController.swift in Sources */,
-				666412C12318E7DE00E12330 /* Model.swift in Sources */,
+				666412C12318E7DE00E12330 /* PlanModel.swift in Sources */,
 				666412BB2318B5CE00E12330 /* InputPlanViewController.swift in Sources */,
 				666412A62318AFA700E12330 /* AppDelegate.swift in Sources */,
 			);

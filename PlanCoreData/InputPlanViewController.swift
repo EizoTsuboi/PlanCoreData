@@ -10,12 +10,16 @@ import UIKit
 
 class InputPlanViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    let categoryList: [String] = ["Private", "Work"]
-    var selectCategory: String = ""
+
+//    var selectCategory: String = ""
 //    var setStartDate: Date?
 //    var setStardDateTime: Date?
 //    var setEndDate: Date?
 //    var setEndDateTime: Date?
+    var plan = PlanModel()
+    let categoryList = CategoryList().categoryList
+    let service = Service()
+    var selectcategory: NSNumber = 0
     
 
     @IBOutlet weak var planNameTextField: UITextField!
@@ -35,7 +39,7 @@ class InputPlanViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         super .viewWillAppear(animated)
         startTimeDatePicker.isHidden = true
         endTimeDatePicker.isHidden = true
-        selectCategory = categoryList[0]
+        
         //DatePickerの値を現在にする
         let now = NSDate()
         startDatePicker.date = now as Date
@@ -50,22 +54,20 @@ class InputPlanViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
     
     @IBAction func okButton(_ sender: Any) {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let plan = Plan(context: context)
-        
+
         plan.planName = planNameTextField.text
-        plan.category = selectCategory
+        plan.category = selectcategory
         plan.detailName = detailNameTextField.text
         plan.startDate = startDatePicker.date
         plan.startDateTime = startDatePicker.date
         plan.endDate = endDatePicker.date
         plan.endDateTime = endTimeDatePicker.date
-        plan.member = memoTextField.text
+        plan.memver = memoTextField.text
         plan.memo = memoTextField.text
         plan.place = placeTextField.text
+
+        self.service.inputPlan(inputPlan: plan)
         
-        //データベースに保存
-        (UIApplication.shared.delegate as! AppDelegate).saveContext()
         //入力した内容をリセット
         resetData()
         //ホーム画面に移動
@@ -89,9 +91,11 @@ class InputPlanViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return categoryList[row]
     }
+    // ピッカーが動いたとき
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectCategory = categoryList[row]
+        selectcategory = NSNumber(value: row)
     }
+    
     //Tim on/offボタンを押したときにdatepickerを表示
     @IBAction func startTImeButton(_ sender: Any) {
         if startTimeDatePicker.isHidden {

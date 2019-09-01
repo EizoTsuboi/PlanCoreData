@@ -11,13 +11,9 @@ import CoreData
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var plans: [Plan] = []
-    var imageDic: [String: UIImage] = [
-        "Private": UIImage(named: "private")!,
-        "Work": UIImage(named: "work")!
-    ]
-    var setDateStr: String = ""
-    
+    var plans: [TitleViewPlan] = []
+    let service = Service()
+
     @IBOutlet weak var planTableView: UITableView!
     
     override func viewDidLoad() {
@@ -31,7 +27,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getData()
+        plans = self.service.getTitleViewPlans()
         planTableView.reloadData()
     }
 
@@ -43,46 +39,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = planTableView.dequeueReusableCell(withIdentifier: "CostomCell", for: indexPath) as! CostomTableViewCell
         let plan = plans[indexPath.row]
         
-        setDate(plan)
+        //表示する画像をServiceクラスのメソッドから返す。category(Int16) -> UIImage
+        let setImage: UIImage = self.service.setCategoryImage(planCategory: plan.category!)
+        let setStartDate: String = self.service.setStartDate(plan: plan)
+        let setEndDate: String = self.service.setEndDate(plan: plan)
         
-        cell.setData(categoryImage: imageDic[plan.category!], planNameLabel: plan.planName, planDateLabel: setDateStr )
+        //CostomCellにplanをset
+        cell.setData(categoryImage: setImage, planNameLabel: plan.planName, planDateLabel: setStartDate )
         return cell
     }
     
-    func getData(){
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        do{
-            plans = try context.fetch(Plan.fetchRequest())
-            print("読み込みOK")
-        }catch{
-            print("読み込みエラー")
-        }
-    }
-    
-    func setDate(_ plan: Plan){
-        //表示するDateの処理
-        let dateFormatter1: DateFormatter = DateFormatter()
-        dateFormatter1.dateFormat = "yyyy/MM/dd"
-        let dateFormatter2: DateFormatter = DateFormatter()
-        dateFormatter2.dateFormat = "hh:mm"
-        let startDate = dateFormatter1.string(from: plan.startDate!)
-        let endDate = dateFormatter1.string(from: plan.endDate!)
-        let startDateTime = dateFormatter2.string(from: plan.startDateTime!)
-        let endDateTime = dateFormatter2.string(from: plan.endDateTime!)
-        if startDate == endDate{
-            if startDateTime == ""{
-                setDateStr = "\(startDate)"
-            }else{
-                setDateStr = "\(startDate)\n\(startDateTime)-\(endDateTime)"
-            }
-        }else{
-            if startDateTime == ""{
-                setDateStr = "\(startDate)-\(endDate)"
-            }else{
-                setDateStr = "\(startDate)-\(endDate)\n\(startDateTime)-\(endDateTime)"
-            }
-        }
-    }
+
 
 }
 
