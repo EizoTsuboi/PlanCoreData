@@ -41,11 +41,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         //表示する画像をServiceクラスのメソッドから返す。category(Int16) -> UIImage
         let setImage: UIImage = self.service.setCategoryImage(planCategory: plan.category!)
-        let setStartDate: String = self.service.setStartDate(plan: plan)
-        let setEndDate: String = self.service.setEndDate(plan: plan)
+        let setStartDate: String = self.service.setDate(plan: plan)
         
         //CostomCellにplanをset
-        cell.setData(categoryImage: setImage, planNameLabel: plan.planName, planDateLabel: setStartDate )
+        cell.setData(categoryImage: setImage, planNameLabel: plan.planName, planDateLabel: setStartDate)
         return cell
     }
     

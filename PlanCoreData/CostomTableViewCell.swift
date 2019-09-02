@@ -14,7 +14,6 @@ class CostomTableViewCell: UITableViewCell {
     @IBOutlet weak var planNameLabel: UILabel!
     @IBOutlet weak var planDateLabel: UILabel!
     
-
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,6 +24,7 @@ class CostomTableViewCell: UITableViewCell {
         self.categoryImageView.image = categoryImage
         self.planNameLabel.text = planNameLabel
         self.planDateLabel.text = planDateLabel
+        
         // Configure the view for the selected state
     }
     

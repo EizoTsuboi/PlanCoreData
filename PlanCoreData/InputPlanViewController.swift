@@ -10,12 +10,6 @@ import UIKit
 
 class InputPlanViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-
-//    var selectCategory: String = ""
-//    var setStartDate: Date?
-//    var setStardDateTime: Date?
-//    var setEndDate: Date?
-//    var setEndDateTime: Date?
     var plan = PlanModel()
     let categoryList = CategoryList().categoryList
     let service = Service()
@@ -25,12 +19,10 @@ class InputPlanViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBOutlet weak var planNameTextField: UITextField!
     @IBOutlet weak var categoryPickerView: UIPickerView!
     @IBOutlet weak var detailNameTextField: UITextField!
-    
     @IBOutlet weak var startDatePicker: UIDatePicker!
     @IBOutlet weak var startTimeDatePicker: UIDatePicker!
     @IBOutlet weak var endDatePicker: UIDatePicker!
     @IBOutlet weak var endTimeDatePicker: UIDatePicker!
-    
     @IBOutlet weak var placeTextField: UITextField!
     @IBOutlet weak var memberTextField: UITextField!
     @IBOutlet weak var memoTextField: UITextField!
@@ -43,7 +35,7 @@ class InputPlanViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         //DatePickerの値を現在にする
         let now = NSDate()
         startDatePicker.date = now as Date
-        startDatePicker.date = now as Date
+        startTimeDatePicker.date = now as Date
         endDatePicker.date = now as Date
         endTimeDatePicker.date = now as Date
     }
@@ -59,17 +51,34 @@ class InputPlanViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         plan.category = selectcategory
         plan.detailName = detailNameTextField.text
         plan.startDate = startDatePicker.date
-        plan.startDateTime = startDatePicker.date
-        plan.endDate = endDatePicker.date
-        plan.endDateTime = endTimeDatePicker.date
         plan.memver = memoTextField.text
         plan.memo = memoTextField.text
         plan.place = placeTextField.text
-
-        self.service.inputPlan(inputPlan: plan)
         
+        if endDatePicker.date <= startDatePicker.date{
+            plan.endDate = nil
+        }else{
+            plan.endDate = endDatePicker.date
+        }
+        print("確認1")
+        if startTimeDatePicker.isHidden{
+            plan.startDateTime = nil
+            plan.endDateTime = nil
+        }else{
+            if endTimeDatePicker.isHidden{
+                plan.startDateTime = startTimeDatePicker.date
+                plan.endDateTime = nil
+            }else{
+                plan.startDateTime = startTimeDatePicker.date
+                plan.endDateTime = endTimeDatePicker.date
+            }
+        }
+        print("確認2")
+        self.service.inputPlan(inputPlan: plan)
+        print("確認3")
         //入力した内容をリセット
         resetData()
+        print("確認8")
         //ホーム画面に移動
         moveVC()
     }

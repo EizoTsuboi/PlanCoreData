@@ -88,21 +88,23 @@ class Service{
     func inputPlan(inputPlan: PlanModel){
         //NSManagedObject Plan(entity)のインスタンス化
         let plan = Plan(context: context)
-        
+        print("確認4")
         //インプットされたinputPlan(struct: PlanModel)をNSManegedObjectに入れる
         plan.planName = inputPlan.planName
         plan.category = inputPlan.category
         plan.detailName = inputPlan.detailName
         plan.startDateTime = inputPlan.startDateTime
         plan.startDate = inputPlan.startDate
+        print("確認5")
         plan.endDate = inputPlan.endDate
         plan.endDateTime = inputPlan.endDateTime
         plan.member = inputPlan.memver
         plan.memo = inputPlan.memo
         plan.place = inputPlan.place
-        
+        print("確認6")
         //NSManegedObjectContext に NSManegedObjectを格納（保存）
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        print("確認7")
     }
     
     //セルにセットする UIImage  <- category番号
@@ -138,8 +140,10 @@ class Service{
     }
     
     //セルにセットするEndDateをStringに （セルはStartDateとEndDateの2つにLabelが分かれている)
-    func setEndDate(plan: TitleViewPlan) -> String{
+    func setDate(plan: TitleViewPlan) -> String{
         //Dateがセットされていない可能性があるためオプショナル型
+        let startDate: Date? = plan.startDate
+        let startDateTime: Date? = plan.startDateTime
         let endDate: Date? = plan.endDate
         let endDateTime: Date? = plan.endDateTime
         
@@ -150,12 +154,16 @@ class Service{
         let dateFormatter2: DateFormatter = DateFormatter()
         dateFormatter2.dateFormat = "hh:mm"
         
-        if endDate == nil && endDateTime == nil{
-            return ""
+        if endDate == nil && startDateTime == nil{
+            return dateFormatter1.string(from: startDate!)
+        }else if endDate == nil{
+            return "\(dateFormatter1.string(from: startDate!))\n\(dateFormatter2.string(from: startDateTime!))"
+        }else if startDateTime == nil{
+            return "\(dateFormatter1.string(from: startDate!)) - \(dateFormatter1.string(from: endDate!))"
         }else if endDateTime == nil{
-            return " - \(dateFormatter1.string(from: endDate!))"
+            return "\(dateFormatter1.string(from: startDate!)) - \(dateFormatter1.string(from: endDate!))\n\(dateFormatter2.string(from: startDateTime!))"
         }else{
-            return " - \(dateFormatter1.string(from: endDate!))\n - \(dateFormatter2.string(from: endDateTime!))"
+            return "\(dateFormatter1.string(from: startDate!)) - \(dateFormatter1.string(from: endDate!))\n\(dateFormatter2.string(from: startDateTime!)) - \(dateFormatter2.string(from: endDateTime!))"
         }
     }
 }
