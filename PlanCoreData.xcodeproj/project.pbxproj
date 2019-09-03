@@ -22,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		661ABEE6231A971000220C5A /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		6646708D231E80690005A66B /* PlanCoreData.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = PlanCoreData.sqlite; sourceTree = "<group>"; };
 		666412A22318AFA700E12330 /* PlanCoreData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanCoreData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		666412A52318AFA700E12330 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		666412A72318AFA700E12330 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +94,7 @@
 				666412A92318AFA700E12330 /* Main.storyboard */,
 				666412AF2318AFA800E12330 /* Assets.xcassets */,
 				666412B12318AFA800E12330 /* LaunchScreen.storyboard */,
+				6646708D231E80690005A66B /* PlanCoreData.sqlite */,
 				666412B42318AFA800E12330 /* Info.plist */,
 				666412AC2318AFA700E12330 /* PlanCoreData.xcdatamodeld */,
 				666412C3231A0C2A00E12330 /* MyPlayground.playground */,
