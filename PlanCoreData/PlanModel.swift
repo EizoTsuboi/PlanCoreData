@@ -30,9 +30,10 @@ struct TitleViewPlan {
     var endDateTime: Date?
 }
 
-struct CategoryList {
-    var categoryList:[String] = [
-        "Private",
-        "Work"
+class ColorDic {
+    let colorDic:[String: UIColor] = [
+        "Private": UIColor(hex: "ffdd59"),
+        "Work": UIColor(hex: "0fbcf9"),
+        "Study": UIColor(hex: "05c46b")
     ]
 }

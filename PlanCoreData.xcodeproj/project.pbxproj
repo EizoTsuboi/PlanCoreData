@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		661ABEE7231A971000220C5A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661ABEE6231A971000220C5A /* Service.swift */; };
+		6646708F231E8A860005A66B /* PlanCoreData.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 6646708E231E8A860005A66B /* PlanCoreData.sqlite */; };
+		66467091231E9CF40005A66B /* Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66467090231E9CF40005A66B /* Extention.swift */; };
 		666412A62318AFA700E12330 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666412A52318AFA700E12330 /* AppDelegate.swift */; };
 		666412A82318AFA700E12330 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666412A72318AFA700E12330 /* ViewController.swift */; };
 		666412AB2318AFA700E12330 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 666412A92318AFA700E12330 /* Main.storyboard */; };
@@ -18,11 +20,13 @@
 		666412BE2318D94800E12330 /* CostomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666412BC2318D94800E12330 /* CostomTableViewCell.swift */; };
 		666412BF2318D94800E12330 /* CostomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 666412BD2318D94800E12330 /* CostomTableViewCell.xib */; };
 		666412C12318E7DE00E12330 /* PlanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666412C02318E7DE00E12330 /* PlanModel.swift */; };
+		668BB624231FFB2A00F974D7 /* CheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668BB623231FFB2A00F974D7 /* CheckViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		661ABEE6231A971000220C5A /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
-		6646708D231E80690005A66B /* PlanCoreData.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = PlanCoreData.sqlite; sourceTree = "<group>"; };
+		6646708E231E8A860005A66B /* PlanCoreData.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = PlanCoreData.sqlite; sourceTree = "<group>"; };
+		66467090231E9CF40005A66B /* Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extention.swift; sourceTree = "<group>"; };
 		666412A22318AFA700E12330 /* PlanCoreData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanCoreData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		666412A52318AFA700E12330 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		666412A72318AFA700E12330 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -36,6 +40,7 @@
 		666412BD2318D94800E12330 /* CostomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CostomTableViewCell.xib; sourceTree = "<group>"; };
 		666412C02318E7DE00E12330 /* PlanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanModel.swift; sourceTree = "<group>"; };
 		666412C3231A0C2A00E12330 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		668BB623231FFB2A00F974D7 /* CheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				661ABEE6231A971000220C5A /* Service.swift */,
+				66467090231E9CF40005A66B /* Extention.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -86,20 +92,37 @@
 			children = (
 				661ABEE5231A96F400220C5A /* Service */,
 				661ABEE2231A48E000220C5A /* Model */,
+				668BB625231FFB3600F974D7 /* View */,
+				668BB626231FFB5F00F974D7 /* CostomCell */,
 				666412A52318AFA700E12330 /* AppDelegate.swift */,
-				666412A72318AFA700E12330 /* ViewController.swift */,
-				666412BA2318B5CE00E12330 /* InputPlanViewController.swift */,
-				666412BC2318D94800E12330 /* CostomTableViewCell.swift */,
-				666412BD2318D94800E12330 /* CostomTableViewCell.xib */,
 				666412A92318AFA700E12330 /* Main.storyboard */,
 				666412AF2318AFA800E12330 /* Assets.xcassets */,
 				666412B12318AFA800E12330 /* LaunchScreen.storyboard */,
-				6646708D231E80690005A66B /* PlanCoreData.sqlite */,
 				666412B42318AFA800E12330 /* Info.plist */,
 				666412AC2318AFA700E12330 /* PlanCoreData.xcdatamodeld */,
+				6646708E231E8A860005A66B /* PlanCoreData.sqlite */,
 				666412C3231A0C2A00E12330 /* MyPlayground.playground */,
 			);
 			path = PlanCoreData;
+			sourceTree = "<group>";
+		};
+		668BB625231FFB3600F974D7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				666412A72318AFA700E12330 /* ViewController.swift */,
+				668BB623231FFB2A00F974D7 /* CheckViewController.swift */,
+				666412BA2318B5CE00E12330 /* InputPlanViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		668BB626231FFB5F00F974D7 /* CostomCell */ = {
+			isa = PBXGroup;
+			children = (
+				666412BC2318D94800E12330 /* CostomTableViewCell.swift */,
+				666412BD2318D94800E12330 /* CostomTableViewCell.xib */,
+			);
+			path = CostomCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,6 +183,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6646708F231E8A860005A66B /* PlanCoreData.sqlite in Resources */,
 				666412BF2318D94800E12330 /* CostomTableViewCell.xib in Resources */,
 				666412B32318AFA800E12330 /* LaunchScreen.storyboard in Resources */,
 				666412B02318AFA800E12330 /* Assets.xcassets in Resources */,
@@ -174,11 +198,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66467091231E9CF40005A66B /* Extention.swift in Sources */,
 				666412AE2318AFA700E12330 /* PlanCoreData.xcdatamodeld in Sources */,
 				661ABEE7231A971000220C5A /* Service.swift in Sources */,
 				666412BE2318D94800E12330 /* CostomTableViewCell.swift in Sources */,
 				666412A82318AFA700E12330 /* ViewController.swift in Sources */,
 				666412C12318E7DE00E12330 /* PlanModel.swift in Sources */,
+				668BB624231FFB2A00F974D7 /* CheckViewController.swift in Sources */,
 				666412BB2318B5CE00E12330 /* InputPlanViewController.swift in Sources */,
 				666412A62318AFA700E12330 /* AppDelegate.swift in Sources */,
 			);

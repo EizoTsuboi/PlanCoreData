@@ -11,9 +11,8 @@ import UIKit
 class InputPlanViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var plan = PlanModel()
-    let categoryList = CategoryList().categoryList
+    var categoryList: [String] = []
     let service = Service()
-    var selectcategory: NSNumber = 0
     
 
     @IBOutlet weak var planNameTextField: UITextField!
@@ -29,6 +28,11 @@ class InputPlanViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
+        //背景の設定
+        let selectRow = categoryPickerView.selectedRow(inComponent: 0)
+        self.view.backgroundColor =  self.service.getColorFromPickerRow(PickerRow: selectRow)
+        
+        //TimeDatePickerを非表示
         startTimeDatePicker.isHidden = true
         endTimeDatePicker.isHidden = true
         
@@ -43,12 +47,14 @@ class InputPlanViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         super.viewDidLoad()
         categoryPickerView.delegate = self
         categoryPickerView.dataSource = self
+        //ピッカーに表示するカテゴリリストを取得
+        categoryList = self.service.getCategoryList()
     }
     
     @IBAction func okButton(_ sender: Any) {
 
         plan.planName = planNameTextField.text
-        plan.category = selectcategory
+        plan.category = NSNumber(value: categoryPickerView.selectedRow(inComponent: 0))
         plan.detailName = detailNameTextField.text
         plan.startDate = startDatePicker.date
         plan.memver = memoTextField.text
@@ -102,7 +108,9 @@ class InputPlanViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
     // ピッカーが動いたとき
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectcategory = NSNumber(value: row)
+        //pickerのrow(=CategoryNum)からUIColorを取得し、背景に設定
+        self.view.backgroundColor =  self.service.getColorFromPickerRow(PickerRow: row)
+        
     }
     
     //Tim on/offボタンを押したときにdatepickerを表示
