@@ -9,49 +9,43 @@
 import UIKit
 
 class CheckViewController: UIViewController {
+    var plan = PlanModel()
+    let service = Service()
+    var id: Int = 0
     
     @IBOutlet weak var planNameLabel: UILabel!
-    @IBOutlet weak var DateTextField: UITextField!
-    @IBOutlet weak var detailNameTextField: UITextField!
-    @IBOutlet weak var placeTextField: UITextField!
-    @IBOutlet weak var memberTextField: UITextField!
-    @IBOutlet weak var memoTextField: UITextField!
+    @IBOutlet weak var dateNameLabel: UILabel!
+    @IBOutlet weak var detailNameLabel: UILabel!
+    @IBOutlet weak var placeLabel: UILabel!
+    @IBOutlet weak var memberLabel: UILabel!
+    @IBOutlet weak var memoLabel: UILabel!
     
-    
-    
-//
-//    @IBOutlet weak var planNameLabel: UILabel!
-//    @IBOutlet weak var DateTextFeild: UITextField!
-//    @IBOutlet weak var detailNameTextField: UITextField!
-//    @IBOutlet weak var placeTextField: UITextField!
-//    @IBOutlet weak var memberTextFeild: UITextField!
-//    @IBOutlet weak var memoTextField: UITextField!
-    
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.view.backgroundColor = self.service.getColorFromCategory(plan: plan)
+        
+        let setDate: String = self.service.setDate(plan: plan)
+        planNameLabel.text = plan.planName
+        dateNameLabel.text = setDate
+        detailNameLabel.text = plan.detailName
+        placeLabel.text = plan.place
+        memberLabel.text = plan.memver
+        memoLabel.text = plan.memo
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        planNameLabel.text = ""
-        print("check3")
-        DateTextField.text = ""
-        detailNameTextField.text = ""
-        print("check4")
-        placeTextField.text = ""
-        memberTextField.text = ""
-        print("check5")
-        memoTextField.text = ""
-        // Do any additional setup after loading the view.
+     
+    }
+    //編集する時のinputViewに渡すデータ
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "editSegue") {
+            let inputPlanViewController: InputPlanViewController = segue.destination as! InputPlanViewController
+            
+            inputPlanViewController.plan = self.plan
+            inputPlanViewController.editPlanId = self.id
+            
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

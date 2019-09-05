@@ -32,8 +32,8 @@ struct TitleViewPlan {
 
 class ColorDic {
     let colorDic:[String: UIColor] = [
-        "Private": UIColor(hex: "ffdd59"),
-        "Work": UIColor(hex: "0fbcf9"),
-        "Study": UIColor(hex: "05c46b")
+        "Private": UIColor(hex: "58BE89"),
+        "Work": UIColor(hex: "40AAEF"),
+        "Study": UIColor(hex: "FDC44F")
     ]
 }

@@ -13,6 +13,7 @@ class CostomTableViewCell: UITableViewCell {
     @IBOutlet weak var categoryImageView: UIImageView!
     @IBOutlet weak var planNameLabel: UILabel!
     @IBOutlet weak var planDateLabel: UILabel!
+    @IBOutlet weak var trushIcon: UIImageView!
     
     
     override func awakeFromNib() {

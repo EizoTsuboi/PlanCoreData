@@ -106,6 +106,68 @@ class Service{
         print("確認7")
     }
     
+    //予定の更新
+    func editPlan(inputPlan: PlanModel, Index: Int){
+        // フェッチリクエスト(検索命令)の生成
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Plan")
+        // startdateの順にソートする命令の追加（ascending(sort),selector,comparatorの設定が不要であれば、記載なしでOK）
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true)]
+        //NSManegedObjectが入るオブジェクト
+        let records: [Plan]
+        do {
+            //context(NSManegedObjectContext)に格納されているNSmangedObjectをNSFetchRequestの命令によって出してきてrecordsに入れる
+            //records = NSManegedObject
+            records = try! context.fetch(fetchRequest) as! [Plan]
+        }catch{
+            print("エラー1")
+        }
+        
+        let record = records[Index]
+        print("確認9")
+        //インプットされたinputPlan(struct: PlanModel)をNSManegedObjectに入れる
+        record.planName = inputPlan.planName
+        record.category = inputPlan.category
+        record.detailName = inputPlan.detailName
+        record.startDateTime = inputPlan.startDateTime
+        record.startDate = inputPlan.startDate
+        print("確認10")
+        record.endDate = inputPlan.endDate
+        record.endDateTime = inputPlan.endDateTime
+        record.member = inputPlan.memver
+        record.memo = inputPlan.memo
+        record.place = inputPlan.place
+        print("確認11")
+        //NSManegedObjectContext に NSManegedObjectを格納（保存）
+        do{
+            try! context.save()
+        }
+        print("確認12")
+    }
+    //選択したセルを削除
+    func deleteCell(Index: Int){
+        // フェッチリクエスト(検索命令)の生成
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Plan")
+        // startdateの順にソートする命令の追加（ascending(sort),selector,comparatorの設定が不要であれば、記載なしでOK）
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true)]
+        //NSManegedObjectが入るオブジェクト
+        let records: [Plan]
+        do {
+            //context(NSManegedObjectContext)に格納されているNSmangedObjectをNSFetchRequestの命令によって出してきてrecordsに入れる
+            //records = NSManegedObject
+            records = try! context.fetch(fetchRequest) as! [Plan]
+        }catch{
+            print("エラー1")
+        }
+        
+        let record = records[Index]
+        context.delete(record)
+        do{
+            try context.save()
+        }catch{
+            print("エラー2")
+        }
+    }
+    
     //セルにセットする UIImage  <- category番号
     func setCategoryImage(planCategory:NSNumber) -> UIImage{
         switch planCategory {
@@ -120,27 +182,7 @@ class Service{
         }
     }
     
-//    //セルにセットするStartDateをStringに （セルはStartDateとEndDateの2つにLabelが分かれている)
-//    func setStartDate(plan: TitleViewPlan) -> String{
-//        //Dateがセットされていない可能性があるためオプショナル型
-//        let startDate: Date? = plan.startDate
-//        let startDateTime: Date? = plan.startDateTime
-//
-//        //日付Formatter
-//        let dateFormatter1: DateFormatter = DateFormatter()
-//        dateFormatter1.dateFormat = "yyyy/MM/dd"
-//        //時間Formatter
-//        let dateFormatter2: DateFormatter = DateFormatter()
-//        dateFormatter2.dateFormat = "hh:mm"
-//
-//        if startDateTime == nil{
-//            return dateFormatter1.string(from: startDate!)
-//        }else{
-//            return dateFormatter1.string(from: startDate!) + "\n" + dateFormatter2.string(from: startDateTime!)
-//        }
-//    }
-    
-    //セルにセットするDateをStringに（タイトル画面用）
+    //セルに表示するため、DateをStringに（タイトル画面用）
     func setDate(plan: TitleViewPlan) -> String{
         //Dateがセットされていない可能性があるためオプショナル型
         let startDate: Date? = plan.startDate
@@ -168,7 +210,7 @@ class Service{
         }
     }
     
-    //セルにセットするDateをStringに （CheckView用)
+    //セルに表示するため、DateをStringに （CheckView用)
     func setDate(plan: PlanModel) -> String{
         //Dateがセットされていない可能性があるためオプショナル型
         let startDate: Date? = plan.startDate
@@ -261,8 +303,27 @@ class Service{
         let getColor: UIColor = colorDic.colorDic[categoryname]!
         return getColor
     }
+    func getColorFromCategory(plan: PlanModel) -> UIColor{
+        let colorDic = ColorDic()
+        // フェッチリクエスト(検索命令)の生成
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Category")
+        //NSManegedObjectが入るオブジェクト
+        let records: [Category]
+        do {//context(NSManegedObjectContext)に格納されているNSmangedObjectをNSFetchRequestの命令によって出してきてrecordsに入れる
+            //records = NSManegedObject
+            records = try! context.fetch(fetchRequest) as! [Category]
+        }
+        var categoryname:String = ""
+        for record in records {
+            if record.id == Int64(plan.category!){
+                categoryname = record.categoryname!
+            }
+        }
+        let getColor: UIColor = colorDic.colorDic[categoryname]!
+        return getColor
+    }
     
-    //選択したセル（indexpath）のオブジェクトを返す
+    //選択したセル（indexpath.rowにあたるオブジェクト）を返す
     func getPlanFromIndex(Index: Int) -> PlanModel{
         // フェッチリクエスト(検索命令)の生成
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Plan")
@@ -280,7 +341,6 @@ class Service{
         }
         //Indexに当たるデータを選択
         let record: Plan = records[Index]
-        print("check1")
         //PlanModel(Struct)をインスタンス化したオブジェクトにNSManegedObject(record)を入れる
         var plan: PlanModel = PlanModel()
         
@@ -294,7 +354,6 @@ class Service{
         plan.startDateTime = record.startDateTime
         plan.endDate = record.endDate
         plan.endDateTime = record.endDateTime
-         print("check\(plan)")
         return plan
     }
 }

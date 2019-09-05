@@ -14,6 +14,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var plans: [TitleViewPlan] = []
     var plan: PlanModel = PlanModel()
     let service = Service()
+    var selectId: Int = 0
 
     @IBOutlet weak var planTableView: UITableView!
     
@@ -47,6 +48,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let setImage: UIImage = self.service.setCategoryImage(planCategory: plan.category!)
         let setDate: String = self.service.setDate(plan: plan)
         
+        //ゴミ箱imageをタップした時の処理を設定（gestureを設定）
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(taptrushIcon))
+        cell.trushIcon.addGestureRecognizer(tapGesture)
+        cell.trushIcon.isUserInteractionEnabled = true
+        cell.trushIcon.tag = indexPath.row
+        
         //CostomCellにplanをset
         cell.setData(categoryImage: setImage, planNameLabel: plan.planName, planDateLabel: setDate)
         return cell
@@ -59,6 +66,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //indexPath.row番号のPlanModelオブジェクトを持ってくる
         plan = self.service.getPlanFromIndex(Index: indexPath.row)
+        selectId = indexPath.row
         performSegue(withIdentifier: "cellSegue", sender: nil)
     }
     
@@ -66,39 +74,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if (segue.identifier == "cellSegue") {
             let checkViewController: CheckViewController = segue.destination as! CheckViewController
             
-            let setDate: String = self.service.setDate(plan: plan)
-            print("check2:\(setDate)")
-            
-            if let text = plan.planName{
-                checkViewController.planNameLabel.text = text
-            }else{
-                print("値がnil")
-            }
-               print("check3")
-           checkViewController.DateTextField.text = setDate
-            
-            if let text = plan.detailName{
-                checkViewController.detailNameTextField.text = text
-            }else{
-                print("値がnil")
-            }
-            print("check4")
-            if let text = plan.place{
-                checkViewController.placeTextField.text = text
-            }else{
-                print("値がnil")
-            }
-            if let text = plan.memver{
-                checkViewController.memberTextField.text = text
-            }
-            
-            print("check5")
-            if let text = plan.memo{
-                checkViewController.memoTextField.text = text
-            }
-            
-            print("check6")
+            checkViewController.plan = self.plan
+            checkViewController.id = selectId
+
         }
+    }
+    
+    @objc func taptrushIcon(gestureRecognizer: UITapGestureRecognizer) {
+        let row = gestureRecognizer.view?.tag
+        self.service.deleteCell(Index: row!)
+        print("delete終了")
+        plans = self.service.getTitleViewPlans()
+        planTableView.reloadData()
+        print("delete後読み込み")
     }
 
 
